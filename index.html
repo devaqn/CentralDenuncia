@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canal de Denúncias - Etapa 1</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="/front/img/shield.svg" type="image.svg">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-logo-container">
+            <i class="fas fa-shield-alt logo-icon"></i>
+            <h1>Canal de Denúncias</h1>
+        </div>
+    </header>
+
+    <main class="container">
+
+
+        <div class="card privacy-card">
+            <div class="card-icon"><i class="fas fa-lock"></i></div>
+            <div class="card-content">
+                <h2>Privacidade e Anonimato</h2>
+                <p>Nenhuma informação pessoal é coletada a menos que você escolha "Quero me identificar."</p>
+            </div>
+        </div>
+        
+        <form class="report-form" id="report_form">
+            <div class="form-section">
+                <label class="section-title">Tipo de Denúncia</label>
+                <div class="radio-card-group">
+                    <label class="radio-card">
+                        <input type="radio" name="tipo_denuncia" value="anonimo" id="denuncia_anonima" checked>
+                        <div class="radio-card-body">
+                            <i class="far fa-eye-slash radio-icon anon-icon"></i>
+                            <h3>Anonimato Total</h3>
+                            <p>Sua identidade permanece oculta</p>
+                        </div>
+                    </label>
+                    <label class="radio-card">
+                        <input type="radio" name="tipo_denuncia" value="identificado" id="denuncia_identificada">
+                        <div class="radio-card-body">
+                            <i class="fa-solid fa-shield radio-icon id-icon"></i>
+                            
+                            <h3>Quero me Identificar</h3>
+                            <p>Fornecer dados opcionais</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="identificacao-campos hidden" id="identificacao_campos">
+                <div class="form-section">
+                    <label class="section-title optional-field" for="nome_completo">Nome Completo (opcional)</label>
+                    <input type="text" id="nome_completo" name="nome_completo" placeholder="Seu nome...">
+                </div>
+                
+                <div class="form-section">
+                    <label class="section-title optional-field" for="telefone">Telefone (opcional)</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX">
+                </div>
+
+                <div class="form-section">
+                    <label class="section-title required-field" for="email">Email *</label>
+                    <input type="email" id="email" name="email" placeholder="seuemail@dominio.com">
+                </div>
+            </div>
+            <div class="form-section">
+                <label class="section-title required-field" for="tipo_crime">Tipo de Crime *</label>
+                <div class="custom-select-wrapper">
+                    <select id="tipo_crime" name="tipo_crime">
+                        <option value="" disabled selected>Selecione o tipo de crime</option>
+                        <option value="assedio">Assédio</option>
+                        <option value="vandalismo">Vandalismo</option>
+                        <option value="trafico">Tráfico</option>
+                        <option value="roubo">Roubo</option>
+                        <option value="discIdeologica">discriminação ideologica</option>
+                        <option value="ameaça">Ameaça</option>
+                        <option value="discRacismo">Discriminação Racial</option>
+                        <option value="estelionato">Estelionato</option>
+                        <option value="agressaofis">Agressão física</option>
+                        <option value="bullyng">Bullyng</option>
+                        <option value="cyberBullyng">Cyber Bullyng</option>
+                        <option value="cyberCrimes">Cyber Crimes</option>
+                        <option value="assassinato">Assassinato</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-arrow"></i>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <label class="section-title required-field" for="descricao_ocorrencia">Descrição do Ocorrido *</label>
+                <div class="description-header">
+                    <p class="description-tip">
+                        Descreva o que aconteceu com detalhes...
+                        <span class="info-icon-wrapper" title="Detalhe o máximo possível o que aconteceu.">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                    </p>
+                    <p class="char-counter" id="char_counter">0/2000</p>
+                </div>
+                <textarea id="descricao_ocorrencia" name="descricao" rows="8" maxlength="2000" placeholder="..."></textarea>
+            </div>
+
+            <div class="form-section">
+                <label class="section-title required-field" for="local_ocorrencia">Local do Ocorrido *</label>
+                <input type="text" id="local_ocorrencia" name="local" placeholder="Endereço, cidade, estabelecimento...">
+            </div>
+
+            <div class="form-section half-width">
+                <label class="section-title optional-field" for="data_hora">Data e Hora (opcional)</label>
+                <input type="datetime-local" id="data_hora" name="data_hora">
+            </div>
+
+            <div class="form-section">
+                <label class="section-title optional-field">Anexar Evidências (opcional)</label>
+                <p class="file-limits">Imagens ou vídeos - Máx. 5 arquivos, 10MB cada, 50MB total</p>
+                <div class="file-upload-area">
+                    <div id="file-upload-text">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p>Clique para selecionar arquivos</p>
+                    </div>
+                    <ul id="file-names-display"></ul>
+                    <input type="file" multiple class="hidden-file-input" id="file_input" name="evidencias[]" accept="image/,video/">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-shield-alt"></i> Enviar Denúncia
+            </button>
+        </form>
+    </main>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
